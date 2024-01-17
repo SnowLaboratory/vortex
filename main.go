@@ -1,7 +1,23 @@
 package main
 
-import "fmt"
+import (
+	"snowlabs/vortex/initializers"
+
+	"github.com/gin-gonic/gin"
+)
+
+func init() {
+	initializers.LoadEnvVariables()
+	initializers.ConnectToDB()
+	initializers.MigrateDB()
+}
 
 func main() {
-	fmt.Println("work?")
+	r := gin.Default()
+	r.GET("/ping", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "pong",
+		})
+	})
+	r.Run()
 }

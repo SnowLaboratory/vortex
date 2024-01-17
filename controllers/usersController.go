@@ -65,7 +65,7 @@ func Login(c *gin.Context) {
 
 	if user.ID == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid email/passwordd.",
+			"error": "Invalid email/password.",
 		})
 		return
 	}
@@ -74,7 +74,7 @@ func Login(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error": "Invalid password.",
+			"error": "Invalid email/password.",
 		})
 		return
 	}
@@ -97,4 +97,12 @@ func Login(c *gin.Context) {
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{})
+}
+
+func Dashboard(c *gin.Context) {
+	user, _ := c.Get("user")
+	// user.(models.User).Email
+	c.JSON(http.StatusOK, gin.H{
+		"values": user,
+	})
 }

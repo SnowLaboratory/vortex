@@ -21,8 +21,8 @@ func ConnectToDB() {
 	dbName := os.Getenv("DBNAME")
 
 	DB, err = gorm.Open(mysql.New(mysql.Config{
-		DSN: fmt.Sprintf("%s:%s@%s(%s:%s)/%s", dbUser, dbPass, dbProtocol, dbHost, dbPort, dbName),
-	}), &gorm.Config{DisableAutomaticPing: true})
+		DSN: fmt.Sprintf("%s:%s@%s(%s:%s)/%s?parseTime=true", dbUser, dbPass, dbProtocol, dbHost, dbPort, dbName),
+	}), &gorm.Config{})
 
 	if err != nil {
 		log.Fatal("Failed to connect to the Database", err)

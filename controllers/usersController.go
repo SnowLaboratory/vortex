@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"snowlabs/vortex/components"
 	"snowlabs/vortex/initializers"
 	"snowlabs/vortex/models"
 	"time"
@@ -97,6 +98,10 @@ func Login(c *gin.Context) {
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
 	c.JSON(http.StatusOK, gin.H{})
+}
+
+func LoginPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "", components.Login())
 }
 
 func Dashboard(c *gin.Context) {

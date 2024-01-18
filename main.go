@@ -16,8 +16,11 @@ func init() {
 
 func main() {
 	r := gin.Default()
+	r.HTMLRender = &TemplRender{}
+
 	r.POST("/register", controllers.Register)
 	r.POST("/login", controllers.Login)
+	r.GET("/login", controllers.LoginPage)
 	r.GET("/dashboard", middleware.RequireAuth, controllers.Dashboard)
 	r.Run()
 }

@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"snowlabs/vortex/initializers"
@@ -27,7 +26,7 @@ func RequireAuth(c *gin.Context) {
 		return []byte(os.Getenv("SECRET")), nil
 	})
 	if err != nil {
-		log.Fatal(err)
+		c.AbortWithStatus(http.StatusUnauthorized)
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok {

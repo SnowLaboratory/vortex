@@ -97,7 +97,7 @@ func Login(c *gin.Context) {
 	c.SetSameSite(http.SameSiteLaxMode)
 	c.SetCookie("Authorization", tokenString, 3600*24*30, "", "", false, true)
 
-	c.JSON(http.StatusOK, gin.H{})
+	c.Redirect(http.StatusFound, "/dashboard")
 }
 
 func LoginPage(c *gin.Context) {
@@ -105,9 +105,7 @@ func LoginPage(c *gin.Context) {
 }
 
 func Dashboard(c *gin.Context) {
-	user, _ := c.Get("user")
+	// user, _ := c.Get("user")
 	// user.(models.User).Email
-	c.JSON(http.StatusOK, gin.H{
-		"values": user,
-	})
+	c.HTML(http.StatusOK, "", components.Dashboard())
 }

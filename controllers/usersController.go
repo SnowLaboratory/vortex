@@ -26,7 +26,7 @@ func Register(c *gin.Context) {
 		})
 		return
 	}
-
+	fmt.Println("req body", requestBody)
 	hash, err := bcrypt.GenerateFromPassword([]byte(requestBody.Password), 10)
 
 	if err != nil {
@@ -45,7 +45,10 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{
+		"status":       "success",
+		"registration": "yes",
+	})
 }
 
 func Login(c *gin.Context) {
@@ -102,6 +105,9 @@ func Login(c *gin.Context) {
 
 func LoginPage(c *gin.Context) {
 	c.HTML(http.StatusOK, "", components.Login())
+}
+func RegisterPage(c *gin.Context) {
+	c.HTML(http.StatusOK, "", components.Register())
 }
 
 func Dashboard(c *gin.Context) {
